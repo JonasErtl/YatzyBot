@@ -51,8 +51,27 @@ def asc(srt):
         if srt[i] - srt[i -1] != 1:
             return False
     return True
-
-
+def more_of_a_kind(lst):
+    nums = {1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
+    for num in lst:
+        if num == 1:
+            nums[1] = nums[1] + 1
+        elif num == 2:
+            nums[2] = nums[2] + 1
+        elif num == 3:
+            nums[3] = nums[3] + 1
+        elif num == 4:
+            nums[4] = nums[4] + 1
+        elif num == 5:
+            nums[5] = nums[5] + 1
+        else:
+            nums[6] = nums[6] + 1
+    largest_value = None
+    for value in nums.values():
+        if largest_value is None or value > largest_value:
+            largest_value = value
+    print(largest_value)
+    
 
 #Taking in the input and running the evalutation
 a = input("Input your numbers: ")
@@ -67,6 +86,7 @@ try:
         is_large_straight(lst)
         is_full_house(lst)
         is_small_straight(lst)
+        more_of_a_kind(lst)
 except:
     raise ValueError("Did you seperate the numbers by a comma?")
 
