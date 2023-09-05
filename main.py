@@ -6,8 +6,8 @@ def is_yatzy(lst):
             print("No Yatzy")
             return False
     print("Snyggt, Yatzy!")
-    print(check_same)
-
+    return True
+#Aaaaah what did i do here  
 def is_full_house(lst):
     all_same = []
     check_same = []
@@ -66,13 +66,38 @@ def more_of_a_kind(lst):
             nums[5] = nums[5] + 1
         else:
             nums[6] = nums[6] + 1
-    largest_value = None
-    for value in nums.values():
-        if largest_value is None or value > largest_value:
-            largest_value = value
-    print(largest_value)
-    
+    for key, value in nums.items():
+        print(f"Number: {key}, Times appeared: {value}")
+    num = 1
+    while num <= len(nums):
+        if nums[num] == 4:
+            print("4K")
+            return "4K"
+        elif nums[num] == 3:
+            print("3K")
+            return "3K"
+        num += 1
 
+combinations_appeared = {"Ones": False, "Twos": False, "Threes": False, "Fours":False, "Fives": False, "Sixes":False, "3K":False,
+                         "4K": False, "SS":False, "LS": False, "CH":False, "FH":False, "YA":False}
+
+def eval_func(lst, combinations_appeared):
+    if combinations_appeared["YA"] == False and is_yatzy(lst) == True:
+        print('\033[92m' + 'Keep your throw! Note down Yatzy.' + '\033[0m')
+        combinations_appeared["YA"] = True 
+    elif combinations_appeared["LS"] == False and is_large_straight(lst) == True:
+        print('\033[92m' + 'Keep your throw! Note down large straight.' + '\033[0m')
+        combinations_appeared["LS"] = True
+    elif combinations_appeared["FH"] == False and is_full_house(lst) == True:
+        print('\033[92m' + 'Keep your throw! Note down full house.' + '\033[0m')
+        combinations_appeared["FH"] = True
+    elif combinations_appeared["SS"] == False and combinations_appeared["LS"] == False and is_small_straight(lst) == True:
+        print("Almost large straight: Try rerolling the remaining die.")
+    elif combinations_appeared["SS"] == False and is_small_straight(lst) == True:
+        print('\033[92m' + 'Keep your throw! Note down a small straight!' + '\033[0m')
+        combinations_appeared["SS"] = True
+    elif more_of_a_kind(lst) == "4K":
+        print("It's four of a kind.")
 #Taking in the input and running the evalutation
 a = input("Input your numbers: ")
 
@@ -82,11 +107,7 @@ try:
     if len(lst) != 5:
         raise ValueError("Did you input too many of too few numbers?")
     else:
-        is_yatzy(lst)
-        is_large_straight(lst)
-        is_full_house(lst)
-        is_small_straight(lst)
-        more_of_a_kind(lst)
+        eval_func(lst, combinations_appeared)
 except:
     raise ValueError("Did you seperate the numbers by a comma?")
 
