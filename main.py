@@ -15,11 +15,13 @@ def is_full_house(lst):
     while i < len(lst):
         if lst[0] == lst[i]:
             all_same.append(lst[i])
+            print(lst[i])
         else:
             check_same.append(lst[i])
+            print(lst[i])
         i += 1
     for num in check_same:
-        if num != check_same[0]:
+        if num != check_same[0] or len(check_same) < 2:
             print("No full house!")
             return False
     print("Full house!")
@@ -107,7 +109,8 @@ try:
     if len(lst) != 5:
         raise ValueError("Did you input too many of too few numbers?")
     else:
-        eval_func(lst, combinations_appeared)
+        #eval_func(lst, combinations_appeared)
+        is_full_house(lst)
 except:
     raise ValueError("Did you seperate the numbers by a comma?")
 
