@@ -81,9 +81,9 @@ def more_of_a_kind(lst):
         num += 1
 
 combinations_appeared = {"Ones": False, "Twos": False, "Threes": False, "Fours":False, "Fives": False, "Sixes":False, "3K":False,
-                         "4K": False, "SS":False, "LS": False, "CH":False, "FH":False, "YA":False}
+                         "4K": False, "SS":False, "LS": False, "CH":False, "FH":False, "YA":False, "Rolls":0}
 
-def eval_func(lst, combinations_appeared):
+def basic_analysis(lst, combinations_appeared):
     if combinations_appeared["YA"] == False and is_yatzy(lst) == True:
         print('\033[92m' + 'Keep your throw! Note down Yatzy.' + '\033[0m')
         combinations_appeared["YA"] = True 
@@ -98,8 +98,16 @@ def eval_func(lst, combinations_appeared):
     elif combinations_appeared["SS"] == False and is_small_straight(lst) == True:
         print('\033[92m' + 'Keep your throw! Note down a small straight!' + '\033[0m')
         combinations_appeared["SS"] = True
-    elif more_of_a_kind(lst) == "4K":
+    elif more_of_a_kind(lst) == "4K" and combinations_appeared["4K"] == False:
         print("It's four of a kind.")
+        combinations_appeared["4K"] = True
+    elif combinations_appeared["3K"] == True and more_of_a_kind(lst) == "3K":
+        print("It's three of a kind.")
+    else:
+        return "NA"
+
+def further_eval(lst, combinations_appeared):
+    pass
 #Taking in the input and running the evalutation
 a = input("Input your numbers: ")
 
@@ -109,7 +117,7 @@ try:
     if len(lst) != 5:
         raise ValueError("Did you input too many of too few numbers?")
     else:
-        eval_func(lst, combinations_appeared)
+        basic_analysis(lst, combinations_appeared)
 except:
     raise ValueError("Did you seperate the numbers by a comma?")
 
