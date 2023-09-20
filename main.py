@@ -109,8 +109,7 @@ try:
     if len(lst) != 5:
         raise ValueError("Did you input too many of too few numbers?")
     else:
-        #eval_func(lst, combinations_appeared)
-        is_full_house(lst)
+        eval_func(lst, combinations_appeared)
 except:
     raise ValueError("Did you seperate the numbers by a comma?")
 
